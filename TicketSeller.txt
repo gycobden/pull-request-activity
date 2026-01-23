@@ -1,0 +1,50 @@
+public class TicketSeller {
+
+  public static final int BASEPRICE = 876;
+  public static final double TAXRATE = 0.11;
+
+  // Computes total ticket cost using a demand factor and optional student discount.
+  // quantity: number of tickets (must be > 0; otherwise throws IllegalArgumentException)
+  // isStudent: true to apply a student discount (20% off)
+  // daysToGame: days remaining until the game
+  // returns: total cost
+  public static double calculateTotal(int quantity, boolean isStudent, int daysToGame) {
+    if (quantity <= 0) {
+      throw new IllegalArgumentException("Quantity must be positive");
+    }
+
+    double discount = 0.0;
+
+// Do not modify surrounding code until the activity's Part Two
+//------------------------------------------------------------------------------------------------
+// Part One:
+
+    // Partner Two: modify this conditional to modify the discount variable if isStudent is true
+    if (true) {
+      System.out.println("Student discount not implemented");
+    }
+
+//------------------------------------------------------------------------------------------------  
+// Do not modify surrounding code until the activity's Part Two
+
+    double demand = calculateDemand(daysToGame);
+
+    double total = 876 * quantity * demand * (1 - discount) * (1 + .11);
+    System.out.println("Unrounded total: " + total);
+
+    double roundedTotal = Math.round(876 * quantity * demand * (1 - discount) * (1 + .11) * 100.0) / 100.0;
+    System.out.println("Rounded total: " + roundedTotal);
+    return roundedTotal;
+  }
+
+  // returns demand based on proximity to game
+  public static double calculateDemand(int daysToGame) {
+    return daysToGame / 7.0
+    ;
+  }
+
+  public static void main(String[] args) {
+    // Demo output to visualize behavior
+    System.out.println("Two student tickets total: " + calculateTotal(2, true, 3));
+  }
+}

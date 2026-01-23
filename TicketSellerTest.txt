@@ -1,0 +1,36 @@
+public class TicketSellerTest {
+  private static void expect(boolean condition, String message) {
+    if (!condition) throw new RuntimeException("FAIL: " + message);
+  }
+
+  public static void main(String[] args) {
+    int passed = 0, failed = 0;
+
+    // 1) quantity=1, not student, 7 days to game: 876 * 1.11 = 972.36
+    try {
+      double total = TicketSeller.calculateTotal(1, false, 7);
+      expect(Math.abs(total - 972.36) < 1e-6, "case 1 expected 972.36, got " + total);
+      passed++;
+      System.out.println("");
+    } catch (RuntimeException e) { System.out.println(e.getMessage()); failed++; }
+
+    // 2) quantity=1, not student, 3 days to game: 375.43 * 1.11 = 416.73
+    try {
+      double total = TicketSeller.calculateTotal(1, false, 3);
+      expect(Math.abs(total - 416.73) < 1e-6, "case 2 expected 416.73, got " + total);
+      passed++;
+      System.out.println("");
+    } catch (RuntimeException e) { System.out.println(e.getMessage()); failed++; }
+
+    // 3) quantity=2, student, 10 days to game: 2002.29 * 1.11 = 2222.54
+    try {
+      double total = TicketSeller.calculateTotal(2, true, 10);
+      expect(Math.abs(total - 2222.54) < 1e-6, "case 3 expected 2222.54, got " + total);
+      passed++;
+      System.out.println("");
+    } catch (RuntimeException e) { System.out.println(e.getMessage()); failed++; }
+
+    System.out.println("Tests passed: " + passed + ", failed: " + failed);
+    if (failed > 0) System.exit(1);
+  }
+}

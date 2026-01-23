@@ -1,0 +1,63 @@
+public class QuadraticFormulaSolver {
+  public static void main(String args[]) {
+    double a = 1;
+    double b = 2;
+    double c = 3;
+    double[] roots = quadratic_formula_solver(a, b, c);
+    System.out.println("Roots: " + roots[0] + ", " + roots[1]);
+
+    // quadratic_formula_solver2(a, b, c);
+  }
+
+  // Solves quadratic equations of the form ax^2 + bx + c = 0
+  // Returns array of two roots using the quadratic formula: x = (-b ± √discriminant) / (2a)
+  // Expected behavior:
+  //   - Positive discriminant: returns two distinct real roots
+  //   - Negative discriminant: returns empty array
+  //   - a = 0: returns empty array (not a quadratic equation)
+  public static double[] quadratic_formula_solver(double a, double b, double c) {
+    double discriminant = find_discriminant(a, b, c);
+    if (discriminant < 0) {
+      return new double[0];
+    }
+
+// Do not modify surrounding code until the activity's Part Two
+//------------------------------------------------------------------------------------------------
+// Part One:
+
+    // Partner One: modify this conditional to handle the a = 0 case
+    if (true) {
+      System.out.println("a = 0 case not implemented");
+    }
+
+//------------------------------------------------------------------------------------------------  
+// Do not modify surrounding code until the activity's Part Two
+
+      double root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+        double root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+          return new double[]{root1,root2};
+  }
+
+  // does something critical
+  public static double find_discriminant(double a, double b, double c) {
+    double discriminant = b * b - 4 * a * c;
+      return discriminant;
+  }
+
+  // unused method
+  // public static void quadratic_formula_solver2(double a,double b,double c) {
+  //   String apiKey = "d1756360-5da0-40df-9926-a76abff5601d";
+  //   String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + apiKey;
+  //   try {
+  //     String prompt = "Solve the quadratic equation " + a + "x^2 + " + b + "x + " + c + " = 0. Provide only the numerical roots.";
+
+  //     // figure out json, http, and imports later
+      
+  //     String result = "";
+      
+  //     System.out.println("Gemini API Result: " + result);
+  //   } catch (Exception e) {
+  //     System.out.println("Error calling Gemini API: " + e.getMessage());
+  //   }
+  // }
+}

@@ -1,0 +1,5 @@
+# Keep Unix line endings for shell scripts (needed for Linux/GitHub Actions)
+*.sh text eol=lf
+
+# Let Git handle line endings for other text files
+* text=auto

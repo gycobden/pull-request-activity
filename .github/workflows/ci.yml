@@ -1,0 +1,69 @@
+# This workflow runs tests on push or pull request to main branch
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+
+      # Set up Java
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # Create build directory
+      - name: Create build directory
+        run: mkdir -p build
+
+      # Compile all source files
+      - name: Compile source files
+        run: |
+          if [ -d "src" ] && [ -n "$(find src -name '*.java' 2>/dev/null)" ]; then
+            javac -d build src/*.java
+          else
+            echo "No Java source files found in src/"
+            exit 1
+          fi
+
+      # Compile all test files
+      - name: Compile test files
+        run: |
+          if [ -d "tests" ] && [ -n "$(find tests -name '*.java' 2>/dev/null)" ]; then
+            javac -d build -cp build tests/*.java
+          else
+            echo "No Java test files found in tests/"
+            exit 1
+          fi
+
+      # Run all tests
+      - name: Run tests
+        run: |
+          cd build
+          for test in *Test.class; do
+            if [ -f "$test" ]; then
+              testname="${test%.class}"
+              echo "Running $testname..."
+              java -cp . "$testname" || exit 1
+            fi
+          done
